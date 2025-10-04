@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabricated Image Analyzer</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+
+<body>
+    <h1>Fabricated Image Analyzer</h1>
+    <div class="container">
+    <div class="image-analysis">
+            <h2>Image Analysis</h2>
+            <input type="file" name="file" id="fileInput" accept=".png, .jpg, .jpeg" multiple>
+            <button onclick="analyzeImage()">Analyze</button>
+            <div id="resultContainer"></div>
+
+            <h2>Selected Image</h2>
+            <img id="selectedImage" style="max-width: 500px; max-height: 500px;">
+        </div>
+        
+        <div class="exif">
+            <h2>EXIF Viewer</h2>
+            <form action="/upload_exif" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required>
+                <input type="submit" value="Details">
+            </form>
+        </div>
+
+        <div class="ela">
+            <h2>ELA Analysis</h2>
+            <form action="/analyze_ela" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required>
+                <input type="submit" value="Analyze_ela">
+        </div>
+    </div> 
+
+        <script>
+            function analyzeImage() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/analyze", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.status === "success") {
+                            document.getElementById("resultContainer").innerHTML = "<p>" + response.message + "</p>";
+                        } else {
+                            alert("Error: " + response.message);
+                        }
+                    }
+                };
+                var formData = new FormData();
+                var fileInput = document.getElementById("fileInput");
+                for (var i = 0; i < fileInput.files.length; i++) {
+                    formData.append('file', fileInput.files[i]);
+                    // Display selected image
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        var img = document.getElementById("selectedImage");
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(fileInput.files[i]);
+                }
+                xhr.send(formData);
+            }
+        </script>
+</body>
+
+</html>

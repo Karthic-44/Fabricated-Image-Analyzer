@@ -1,0 +1,48 @@
+h1{
+    text-align: center;
+}
+body{
+     background-color: #1e1e1e;
+    color: #f0f0f0;
+}
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px auto;
+}
+
+th,
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #a36565;
+}
+
+.print-button {
+    margin: 20px auto;
+    text-align: center;
+}
+
+    button {
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #5E5DF0, #6A8DFF);
+    border-radius: 999px;
+    box-shadow: 0 8px 20px rgba(94, 93, 240, 0.3);
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    transition: all 0.3s ease;
+   
+}
+
+.print-button button:hover {
+   background-color: #7a78ff;
+    transform: translateY(-2px);
+}

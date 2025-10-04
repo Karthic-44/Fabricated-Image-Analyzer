@@ -1,0 +1,98 @@
+body {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 5px 30px;
+    max-width: 900px;
+    margin: auto;
+}
+
+h1, h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+button, input[type="submit"], input[type="file"]::file-selector-button {
+    background: linear-gradient(135deg, #5E5DF0, #6A8DFF);
+    border-radius: 999px;
+    box-shadow: 0 8px 20px rgba(94, 93, 240, 0.3);
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border: none;
+    transition: all 0.3s ease;
+    margin: 10px 5px;
+}
+
+    input[type="file"]::file-selector-button{
+    
+    box-shadow: 0 4px 12px rgba(94, 93, 240, 0.4);
+    }
+
+button:hover,
+input[type="submit"]:hover,  input[type="file"]::file-selector-button:hover
+{
+    background-color: #7a78ff;
+    transform: translateY(-2px);
+}
+
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin-top: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.image-analysis,
+.exif,
+.ela {
+    background-color: #2e2e2e;
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+input[type="file"] {
+    margin-top: 10px;
+    color: #ddd;
+}
+
+.hidden {
+    display: none;
+}
+
+#resultContainer {
+    font-size: 22px;
+    margin-top: 20px;
+    color: #00ffc8;
+}
+
+.prediction {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffe600;
+}
+
+.confidence {
+    font-size: 22px;
+    font-style: italic;
+    color: #aaaaaa;
+}
