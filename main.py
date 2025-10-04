@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, send_file, redirect,
 from PIL import Image, ImageFilter, ExifTags
 import os
 from prediction import predict_result  # Assuming this module contains prediction logic
-
+from ela import convert_to_ela_image
 app = Flask(__name__)
 
 # Dummy user data for demonstration
@@ -35,14 +35,6 @@ app.config['UPLOAD_FOLDER_EXIF'] = 'Uploads/exif'
 # Configuration for uploading images for ELA processing
 app.config['ELA_FOLDER'] = 'upload/ela'
 
-def error_level_analysis(image_path, quality=90):
-    # Open the image
-    img = Image.open(image_path)
-    # Convert the image to JPEG format with the given quality
-    img_ela = img.convert('RGB').filter(ImageFilter.EDGE_ENHANCE_MORE).save('temp.jpg', 'JPEG', quality=quality)
-    # Reopen the new JPEG image and convert it to ELA format
-    ela_img = Image.open('temp.jpg').convert('L')
-    return ela_img
 
 # Routes for file upload and analysis
 @app.route('/upload', methods=['POST'])
@@ -96,7 +88,7 @@ def analyze_ela():
     filename = os.path.join(app.config['ELA_FOLDER'], file.filename)
     file.save(filename)
 
-    ela_img = error_level_analysis(filename)
+    ela_img = convert_to_ela_image(filename, quality=90)
     # Save ELA image
     ela_path = os.path.join(app.config['ELA_FOLDER'], f'ela_{file.filename}')
     ela_img.save(ela_path)
@@ -108,8 +100,6 @@ def analyze_ela():
         
     except Exception as e:
         return str(e)
-
-
 
 @app.route('/close', methods=['POST'])
 def close():
