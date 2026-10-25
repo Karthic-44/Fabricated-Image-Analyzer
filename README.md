@@ -1,28 +1,48 @@
 # Fabricated Image Analyzer
 
-Images are often manipulated with the intent and purpose of benefiting one party. In fact, images are often considered as evidence of a fact or reality, therefore, fake news or any form of publication that uses images that have been manipulated in such a way has greater capability and potential to mislead. 
+A web app that checks whether a JPEG image file has been edited. You upload an image and it gives back a verdict, a confidence score, the photo's error level map, and metadata information (camera, software, GPS).
 
-To detect image forgeries, large amounts of image data are needed, and a model that can process every pixel in the image. Apart from that, efficiency and flexibility in training data are also needed to support its use in everyday life. The concept of big data and deep learning is the right solution to this problem. Therefore, with a Convolutional Neural Network (CNN) architecture that utilizes Error Level Analysis (ELA), image forgery detection can reach 91.83% and convergence in only 9 epochs. This project uses deep learning to classify images as original images and images that have undergone modifications with a simpler architecture, so that computational costs can be reduced. Involving the use of ELA in machine learning as an effort to increase efficiency.
+## How it works
 
-# Dependencies
+Error level analysis (ELA) re-saves a JPEG at a fixed quality and subtracts the result from the original. A region that was pasted in or retouched usually has a different compression history from the rest of the picture, so it re-compresses differently and shows up brighter in the difference image.
 
-* ```tensorflow```
-* ```keras```
-* ```PIL```
-* ```flask```
-* ```os```
-* ```sys```
+The pipeline is:
 
-# UI
+1. Compute the ELA image, resize it to 224x224 and normalize it.
+2. Run it through a convolutional neural network that outputs a single score.
+3. Call the image tampered if the score is above a threshold chosen on the validation set.
 
-## Core-Website
-<img width="1917" height="986" alt="image" src="https://github.com/user-attachments/assets/4be5dcf1-ff99-428f-b5dc-3a4fbb06942a" />
+## Results
 
-## Prediction
-<img width="920" height="863" alt="image" src="https://github.com/user-attachments/assets/35d83fa9-a6fa-4bc1-8b27-6aba393faa1a" />
+I trained on the CASIA v2.0 dataset ([Dataset](https://www.kaggle.com/datasets/divg07/casia-20-image-tampering-detection-dataset)) and kept only the JPEG files: 9,501 images, 7,437 authentic and 2,064 tampered. Tampered images in CASIA are made from authentic ones, so a random split would leak. I grouped images by the source photo in the filename and split by group, 70/15/15 (6,661 train, 1,431 validation, 1,409 test). It gave an accuracy of 96%
 
-## EXIF
-<img width="1413" height="907" alt="image" src="https://github.com/user-attachments/assets/dad5d81e-8e11-4406-9da8-062da5fddfff" />
+## Running it
 
+### Train
+
+    python train.py
+
+This builds `data/manifest.csv` if it is missing, trains the model, writes the run (weights, `metrics.json`, `history.csv`) to a folder under `runs/` and saves a copy for the backend in `models/`.
+
+### Run the app
+
+    python -m uvicorn backend.main:app --reload
+
+In a second terminal:
+
+    cd frontend
+    npm install
+    npm run dev
+
+Open http://localhost:5173
+
+## Layout
+
+    forgery/    ELA, data prep, models, metrics, export
+    backend/    FastAPI service that loads the trained model
+    frontend/   React + Vite app
+    train.py    prepares data, trains, saves the model
+
+The app doesn't store uploaded images.
 
 
