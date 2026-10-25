@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+data/
+cache/
+runs/
+tests/
+models/
+*.h5
+*.pt
+*.npz
+web/node_modules/
+web/dist/
+web/.env
+pytest.ini

@@ -1,0 +1,15 @@
+numpy
+pandas
+pillow
+scikit-learn
+tqdm
+torch
+torchvision
+httpx
+onnx
+fastapi
+uvicorn
+python-multipart
+pillow
+numpy
+onnxruntime
