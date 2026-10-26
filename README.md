@@ -45,4 +45,8 @@ Open http://localhost:5173
 
 The app doesn't store uploaded images.
 
+## Screenshots
 
+<img width="1919" height="945" alt="image" src="https://github.com/user-attachments/assets/72fa8139-a28f-4a6a-95af-f389ab6068a5" />
+
+<img width="1919" height="945" alt="image" src="https://github.com/user-attachments/assets/890af156-4f77-417a-a8db-ad952f642df5" />
