@@ -19,7 +19,7 @@ function serviceLabel(service: Service) {
   if (service === "checking") return { tone: "checking", text: "Checking the analysis service" };
   if (service === "offline") return { tone: "offline", text: "Analysis service offline" };
   if (!service.model_loaded || !service.model) return { tone: "offline", text: "No model loaded" };
-  return { tone: "ready", text: `Model ready (${service.model.model})` };
+  return { tone: "ready", text: `ready` };
 }
 
 export default function App() {
