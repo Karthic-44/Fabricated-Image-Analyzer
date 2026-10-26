@@ -62,10 +62,6 @@ export function Evidence({ result, name, onReset }: Props) {
         </ul>
       )}
 
-      <p className="note">
-        Brighter areas in the map recompress differently from their surroundings. That can point to edits, but it isn't
-        proof either way.
-      </p>
 
       <dl className="details">
         <dt>File</dt>
